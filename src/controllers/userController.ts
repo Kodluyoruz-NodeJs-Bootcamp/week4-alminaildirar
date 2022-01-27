@@ -82,7 +82,6 @@ export const getDashboardPage: RequestHandler = async (req, res) => {
   }
 };
 
-
 export const getEditPage: RequestHandler = async (req, res) => {
   try{
     if(req.session.userID){
@@ -91,15 +90,36 @@ export const getEditPage: RequestHandler = async (req, res) => {
       }else{
         res.status(200).render("login", {errors})
       }
-     
-     
-
 
     } catch(err){
        throw new err;
       
   }
    
+};
+
+export const editUser: RequestHandler = async(req, res) => {
+  try{
+    if(req.session.userID){
+      const user = await getRepository(User).findOne({id: req.session.userID});
+      user.firstName = req.body.userName;
+      user.lastName = req.body.lastName;
+      user.userName = req.body.userName;
+      await getRepository(User).save(user)
+      res.status(200).render("index", {user});
+
+      }else{
+        res.status(200).render("login", {errors})
+      }
+
+    } catch(err){
+      console.log(err)
+       throw new err;
+      
   }
+
+}
+
+
 
   let errors: Array<String> = [];

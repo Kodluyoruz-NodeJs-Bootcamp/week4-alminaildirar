@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as cookieParser from "cookie-parser";
 import * as session from "express-session";
+import * as methodOverride from 'method-override'
 import { TypeormStore } from "typeorm-store";
 import userRoute from "./routes/userRoute";
 import pageRoute from "./routes/pageRoute";
@@ -22,6 +23,9 @@ createConnection().then(() => {
   // for parsing application/x-www-form-urlencoded
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
+  app.use(methodOverride('_method', {
+    methods:['POST','GET']
+  }))
 
  //----Create repo for sessions------------
   const repository = getConnection().getRepository(Session);
