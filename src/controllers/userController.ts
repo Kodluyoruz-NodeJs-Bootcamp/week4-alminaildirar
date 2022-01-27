@@ -81,3 +81,25 @@ export const getDashboardPage: RequestHandler = async (req, res) => {
     throw new Error();
   }
 };
+
+
+export const getEditPage: RequestHandler = async (req, res) => {
+  try{
+    if(req.session.userID){
+      const user = await getRepository(User).findOne({id: req.session.userID})
+      res.status(200).render("edit", {user,errors})
+      }else{
+        res.status(200).render("login", {errors})
+      }
+     
+     
+
+
+    } catch(err){
+       throw new err;
+      
+  }
+   
+  }
+
+  let errors: Array<String> = [];
