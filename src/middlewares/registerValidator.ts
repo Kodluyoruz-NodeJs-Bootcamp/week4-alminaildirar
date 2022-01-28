@@ -22,12 +22,12 @@ export const checkErrorsForRegister:RequestHandler = async(req, res, next) => {
 
 //This is used to check errors for register process
 export const registrationValidation = [
-    check("firstName", "First name is required.").notEmpty(),
-    check("lastName", "Last name is required.").notEmpty(),
-    check("userName", "Username is required.").notEmpty().isLength({min:3}).withMessage("Username must be at least 3 characters long."),
-    check("password", "Password is required.").notEmpty().isLength({min:3}).withMessage("Password must be at least 3 characters long."),
+    check("firstName", "First name is required.").trim().notEmpty(),
+    check("lastName", "Last name is required.").trim().notEmpty(),
+    check("userName", "Username is required.").trim().notEmpty().isLength({min:3}).withMessage("Username must be at least 3 characters long."),
+    check("password", "Password is required.").trim().notEmpty().isLength({min:3}).withMessage("Password must be at least 3 characters long."),
     //This custom function is used to check if password and confirmpassword are match or not.
-    check("password2").custom((value, {req}) => {
+    check("password2").trim().custom((value, {req}) => {
         if(value != req.body.password){
             throw new Error("Passwords do not match");
         }

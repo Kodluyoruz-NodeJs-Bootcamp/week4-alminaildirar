@@ -1,13 +1,14 @@
 const router = require('express').Router()
 import {createUser, loginUser,getDashboardPage, logoutUser, getEditPage, editUser, deleteUser} from "../controllers/userController"
-import {checkErrorsForRegister, registrationValidation} from "../middlewares/registerValidator"
+import {registrationValidation, checkErrorsForRegister} from "../middlewares/registerValidator"
 import {loginValidation, checkErrorsForLogin} from '../middlewares/loginValidator'
+import { editValidation, checkErrorsForEdit } from "../middlewares/editValidator"
 import { hasAuth } from "../middlewares/auth"
 
 //http://localhost:3000/users/
 //Routes for register login POST, get dashboard page and logout process
 
-router.route('/edit').put(editUser)
+router.route('/edit').put(editValidation, checkErrorsForEdit, editUser)
 router.route('/edit').delete(deleteUser)
 router.route('/edit').get(getEditPage)
 router.route('/logout').get(logoutUser)
