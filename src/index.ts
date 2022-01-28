@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 import * as express from "express";
 import * as cookieParser from "cookie-parser";
 import * as session from "express-session";
@@ -9,9 +10,14 @@ import "reflect-metadata";
 import { createConnection, getConnection } from "typeorm";
 import { Session } from "./entity/Session";
 
+
+
+
 createConnection().then(() => {
+ 
   
-  
+  dotenv.config();
+
   //---------Init Express App--------
   const app = express();
   app.set("view engine", "ejs");
@@ -23,9 +29,7 @@ createConnection().then(() => {
   // for parsing application/x-www-form-urlencoded
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
-  app.use(methodOverride('_method', {
-    methods:['POST','GET']
-  }))
+  app.use(methodOverride('_method', {methods:['POST','GET']}))
 
  //----Create repo for sessions------------
   const repository = getConnection().getRepository(Session);
@@ -51,7 +55,7 @@ createConnection().then(() => {
     res.status(500).render("500", {Error});
   });
 
-  app.listen(3000, () => {
-    console.log(`Server is running on 3000.`);
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running.`);
   });
 });

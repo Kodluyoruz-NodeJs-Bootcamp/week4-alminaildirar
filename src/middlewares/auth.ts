@@ -10,7 +10,7 @@ export const hasAuth: RequestHandler = async (req, res, next) => {
     //If token is not found redirect login page
     if (!token) return res.render("login", { errors });
     //Verify token and decode jwt 
-    jwt.verify(token, 'hush-hush', (err, decoded) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
       if (decoded.userID && decoded.browserInfo) {
         // browser information and userID received from both session and jwt were compared with each other.
         if (

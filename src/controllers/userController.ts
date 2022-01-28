@@ -6,7 +6,7 @@ import { User } from "../entity/User";
 
 //This function is used to create jwt token
 const createToken = (userID: number, browserInfo: string): string =>
-  jwt.sign({ userID, browserInfo }, 'hush-hush', {
+  jwt.sign({ userID, browserInfo }, process.env.TOKEN_SECRET, {
     expiresIn: 90000,
   });
 
@@ -143,6 +143,4 @@ export const deleteUser: RequestHandler = async (req, res) => {
   }
 }
 
-
-
-  let errors: Array<String> = [];
+let errors: Array<String> = [];
