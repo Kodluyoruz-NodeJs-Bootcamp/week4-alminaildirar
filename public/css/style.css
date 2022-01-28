@@ -315,9 +315,36 @@ figure {
     width: 100%;
 }
 .form-group {
+
     position: relative;
     margin-bottom: 25px;
     overflow: hidden;
+
+}
+.form-groupx {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.x{
+
+    display: inline-block;
+    background: red;
+    color: #fff;
+    border-bottom: none;
+    width: auto;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    margin-top: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 5px;
+    padding: 14px;
+
 }
 .form-group:last-child {
     margin-bottom: 0;

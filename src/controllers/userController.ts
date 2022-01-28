@@ -37,6 +37,7 @@ export const createUser: RequestHandler = async (req, res) => {
 
 export const loginUser: RequestHandler = async (req, res, next) => {
   try {
+    errors = []
     //After validation process, get infos from body and check the informations for login
     const { userName, password } = req.body;
     const user = await getRepository(User).findOne({ userName });
@@ -51,6 +52,9 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       res.cookie("jwt", token, { httpOnly: true, maxAge: 90000 });
 
       res.status(200).redirect("/users/dashboard");
+    }else{
+      errors.push('Please check your username and password')
+      res.status(200).render('login', {errors})
     }
   } catch (err) {
     throw err;
@@ -84,6 +88,7 @@ export const getDashboardPage: RequestHandler = async (req, res) => {
 
 export const getEditPage: RequestHandler = async (req, res) => {
   try{
+    errors = []
     if(req.session.userID){
       const user = await getRepository(User).findOne({id: req.session.userID})
       res.status(200).render("edit", {user,errors})
@@ -98,11 +103,11 @@ export const getEditPage: RequestHandler = async (req, res) => {
    
 };
 
-export const editUser: RequestHandler = async(req, res) => {
+export const editUser: RequestHandler = async (req, res) => {
   try{
     if(req.session.userID){
       const user = await getRepository(User).findOne({id: req.session.userID});
-      user.firstName = req.body.userName;
+      user.firstName = req.body.firstName;
       user.lastName = req.body.lastName;
       user.userName = req.body.userName;
       await getRepository(User).save(user)
@@ -118,6 +123,25 @@ export const editUser: RequestHandler = async(req, res) => {
       
   }
 
+};
+
+export const deleteUser: RequestHandler = async (req, res) => {
+  try{
+    if(req.session.userID){
+      let user = await getRepository(User).findOne({id: req.session.userID});
+      await getRepository(User).remove(user)
+      user = null;
+      res.status(200).render('index', {user})
+
+      }else{
+        res.status(200).render("login", {errors})
+      }
+
+    } catch(err){
+      console.log(err)
+       throw new err;
+      
+  }
 }
 
 
