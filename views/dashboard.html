@@ -1,18 +1,24 @@
 <%- include('partials/_header')-%>
 <body>
-  
+    
   <div class="main">
     <!--
 Include Tailwind JIT CDN compiler
 More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
 -->
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+<script src="../public/js/"></script>
 <!-- Snippet -->
 <section class="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
     <div class="btn-group list-btn">
         <a href="/users/logout" class="btn register">Log Out</a>
         <a href="/" class="btn register"><i class="zmdi zmdi-home"></i> Home</a>
         <a href="/users/edit" class="btn register"><i class="zmdi zmdi-account"></i> Update Profile</a>
+
+
+        <a href="#friends" class=" btn register">Friends</a>
+        
+          
       </div>
     <div class="h-full">
         <!-- Table -->
@@ -30,6 +36,9 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center">First Name</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-center">Last Name </div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center">Last Name </div>
@@ -52,6 +61,10 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-center"><%= users[i].lastName %></div>
                                 </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-center"><a href="/" class="btn register zmdi zmdi-account-add"></a></div>
+                                </td>
+
                             </tr>
                              
                         <% } %>
@@ -61,6 +74,42 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="friends" class="p-5 w-full max-w-3xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-center text-gray-800">User List</h2>
+        </header>
+        <div class="p-3">
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="text-base font-semibold uppercase text-gray-400 bg-gray-50">
+                        <tr>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">User Name</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-base divide-y divide-gray-100">
+                        
+                    <% for(let i=0; i<users.length; i++) { %>
+                        <tr>
+                            <td class="p-2 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://cdn-icons-png.flaticon.com/512/763/763724.png" width="40" height="40" alt="cutecat"></div>
+                                    <div class="font-medium text-gray-800"><%= users[i].userName %></div>
+                                </div>
+                            </td>
+
+                        </tr>
+                         
+                    <% } %>
+
+
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -141,6 +141,7 @@ export const deleteUser: RequestHandler = async (req, res) => {
       console.log(err)
        throw new err;
   }
-}
+};
 
 let errors: Array<String> = [];
+
